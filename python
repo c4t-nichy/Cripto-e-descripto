@@ -1,3 +1,40 @@
+def criptografar(mensagem, deslocamento):
+    resultado = ""
+
+    for caractere in mensagem:
+        if caractere.isalpha() and caractere.isascii():
+            base = ord('A') if caractere.isupper() else ord('a')
+            nova_letra = chr(
+                (ord(caractere) - base + deslocamento) % 26 + base
+            )
+            resultado += nova_letra
+        else:
+            resultado += caractere
+
+    return resultado
+
+
+def descriptografar(mensagem, deslocamento):
+    return criptografar(mensagem, -deslocamento)
+
+
+print("=== Programa de Criptografia ===")
+print("1 - Criptografar mensagem")
+print("2 - Descriptografar mensagem")
+
+opcao = input("Escolha uma opção: ")
+mensagem = input("Digite a mensagem: ")
+deslocamento = int(input("Digite o deslocamento (chave): "))
+
+if opcao == "1":
+    print("Mensagem criptografada:",
+          criptografar(mensagem, deslocamento))
+elif opcao == "2":
+    print("Mensagem descriptografada:",
+          descriptografar(mensagem, deslocamento))
+else:
+    print("Opção inválida!")
+
 def criptografar(mensagem, chave):
     resultado = ""
 
