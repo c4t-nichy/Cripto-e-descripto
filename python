@@ -1,0 +1,60 @@
+def criptografar(mensagem, chave):
+    resultado = ""
+
+    for letra in mensagem:
+        if letra.isalpha() and letra.isascii():
+            base = ord('A') if letra.isupper() else ord('a')
+
+            nova_letra = chr(
+                (ord(letra) - base + chave) % 26 + base
+            )
+            resultado += nova_letra
+        else:
+            # Mantém espaços, números e pontuação
+            resultado += letra
+
+    return resultado
+
+
+def descriptografar(mensagem, chave):
+    return criptografar(mensagem, -chave)
+
+
+def main():
+    print("================================")
+    print("   SISTEMA DE CRIPTOGRAFIA")
+    print("================================")
+    print("1 - Criptografar mensagem")
+    print("2 - Descriptografar mensagem")
+    print("3 - Sair")
+
+    while True:
+        opcao = input("\nEscolha uma opção: ")
+
+        if opcao == "3":
+            print("Programa encerrado!")
+            break
+
+        if opcao not in ("1", "2"):
+            print("Opção inválida! Tente novamente.")
+            continue
+
+        mensagem = input("Digite a mensagem: ")
+
+        try:
+            chave = int(input("Digite a chave numérica: "))
+        except ValueError:
+            print("Erro: digite um número inteiro para a chave.")
+            continue
+
+        if opcao == "1":
+            resultado = criptografar(mensagem, chave)
+            print("Mensagem criptografada:", resultado)
+
+        else:
+            resultado = descriptografar(mensagem, chave)
+            print("Mensagem descriptografada:", resultado)
+
+
+if __name__ == "__main__":
+    main()
